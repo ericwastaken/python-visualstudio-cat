@@ -66,12 +66,12 @@ def get_commented_code(code):
         total_tokens_used = 0
 
         # Prepare the prompt in chat message format
-        system_message = {"role": "system", "content": "You are a helpful assistant that adds comments to code."}
+        system_message = {"role": "system", "content": "You are a helpful assistant that analyzes code and adds comments."}
 
         for i, chunk in enumerate(code_chunks):
             user_message = {"role": "user", "content": OPENAI_PROMPT + "\n\n" + chunk}
             response = client.chat.completions.create(
-                model="gpt-3.5-turbo",
+                model="gpt-3.5-turbo",  # TODO: Move this into .env with a default here
                 messages=[system_message, user_message],
                 temperature=0.5,
                 max_tokens=MAX_TOKENS_PER_CALL,
@@ -85,10 +85,11 @@ def get_commented_code(code):
         # Concatenate all the comments to form the final response
         # If we had multiple code chunks, we need to have the GPT consolidate all the chunk comments into a single one
         if len(code_chunks) > 1:
+            # TODO: In multi-chunk case, move the prompt to .env also.
             user_message = {"role": "user", "content": "Consolidate these multiple code summaries into a single entry"
                                                        + "\n\n".join(all_comments)}
             response = client.chat.completions.create(
-                model="gpt-3.5-turbo",
+                model="gpt-3.5-turbo",  # TODO: Move this into .env with a default here
                 messages=[system_message, user_message],
                 temperature=0.5,
                 max_tokens=MAX_TOKENS_PER_CALL,

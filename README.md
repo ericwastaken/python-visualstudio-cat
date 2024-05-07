@@ -63,5 +63,5 @@ c:\> python vscat.py --source-directory "C:\path\to\vs\project" --output-documen
 ## Roadmap
 
 - [ ] Move the file extensions to include into the .env file (with defaults if not declared).
-- [ ] Add a summary of the project to the markdown file, after all the files are processed, and insert at the top.
+- [ ] Add a summary of the entire project to the markdown file, after all the files are processed, and insert at the top.
 - [ ] Add logic to filter out path/file patterns based on a regex. Multiple regex patters are supported by Regex built in OR "|" operator.
